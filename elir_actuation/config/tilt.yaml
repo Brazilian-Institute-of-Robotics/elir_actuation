@@ -1,0 +1,13 @@
+joint_test:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_test
+    joint_speed: 0.5
+    motor:
+        id: 12
+        init: 0
+        min: 0
+        max: 4095
+
