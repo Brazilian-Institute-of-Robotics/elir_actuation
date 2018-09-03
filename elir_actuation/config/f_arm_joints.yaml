@@ -21,9 +21,9 @@ joint2_f_controller:
     joint_name: joint2_f
     joint_speed: 0.5
     motor_master:
-        id: 21
+        id: 14
         init: 1415
         min: 763
         max: 2523
     motor_slave:
-        id: 11
+        id: 24
