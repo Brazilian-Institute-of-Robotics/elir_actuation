@@ -10,7 +10,7 @@ rospy.init_node('State_Publisher')
 register_to_rad = (360.0/4095)*(pi/180)
 
 #Dictionary containing the joint name and master servo ID
-joints = {11:'joint1_f',12:'joint2_f',13:'joint1_b',14:'joint2_b',
+joints = {12:'joint1_f',21:'joint2_f',139:'joint1_b',149:'joint2_b',
 31:'joint_garra_tracao_f1',41:'joint_garra_tracao_f2',131:'joint_garra_tracao_b1',
 141:'joint_garra_tracao_b2',71:'joint_garra_tracao_ap',51:'joint_eixo_tracao_f1',
 61:'joint_eixo_tracao_f2',151:'joint_eixo_tracao_b1',161:'joint_eixo_tracao_b2',
@@ -18,7 +18,7 @@ joints = {11:'joint1_f',12:'joint2_f',13:'joint1_b',14:'joint2_b',
 }
 
 #Offset of the joints, configured in the controllers config files
-offset = {'joint1_f':2380,'joint2_f':2791,'joint1_b':0,'joint2_b':0,
+offset = {'joint1_f':633,'joint2_f':1415,'joint1_b':0,'joint2_b':0,
 'joint_garra_tracao_f1':0,'joint_garra_tracao_f2':0,'joint_garra_tracao_b1':0,
  'joint_garra_tracao_b2':0, 'joint_garra_tracao_ap':0,'joint_eixo_tracao_f1':0,
 'joint_eixo_tracao_f2':0,'joint_eixo_tracao_b1':0,'joint_eixo_tracao_b2':0,
