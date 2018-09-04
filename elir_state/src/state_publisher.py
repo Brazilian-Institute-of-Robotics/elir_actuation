@@ -10,7 +10,7 @@ rospy.init_node('State_Publisher')
 register_to_rad = (360.0/4095)*(pi/180)
 
 #Dictionary containing the joint name and master servo ID
-joints = {11:'joint1_f',12:'joint2_f',13:'joint1_b',14:'joint2_b',
+joints = {12:'joint1_f',21:'joint2_f',23:'joint1_b',14:'joint2_b',
 31:'joint_garra_tracao_f1',41:'joint_garra_tracao_f2',131:'joint_garra_tracao_b1',
 141:'joint_garra_tracao_b2',71:'joint_garra_tracao_ap',51:'joint_eixo_tracao_f1',
 61:'joint_eixo_tracao_f2',151:'joint_eixo_tracao_b1',161:'joint_eixo_tracao_b2',
@@ -18,7 +18,7 @@ joints = {11:'joint1_f',12:'joint2_f',13:'joint1_b',14:'joint2_b',
 }
 
 #Offset of the joints, configured in the controllers config files
-offset = {'joint1_f':2380,'joint2_f':2791,'joint1_b':0,'joint2_b':0,
+offset = {'joint1_f':633,'joint2_f':1415,'joint1_b':633,'joint2_b':1415,
 'joint_garra_tracao_f1':0,'joint_garra_tracao_f2':0,'joint_garra_tracao_b1':0,
  'joint_garra_tracao_b2':0, 'joint_garra_tracao_ap':0,'joint_eixo_tracao_f1':0,
 'joint_eixo_tracao_f2':0,'joint_eixo_tracao_b1':0,'joint_eixo_tracao_b2':0,
@@ -37,10 +37,11 @@ def process(msg):
 	joint_states.header.stamp = rospy.Time.now()
 	#Creates fake values for joints
 	for i in joints:
-		if not (i==11 or i ==12):
-			joint_states.name.append(joints[i])
-			joint_states.position.append(0)
-			joint_states.velocity.append(0)
+		for servo in msg.motor_states:
+			if not i == servo.id:
+				joint_states.name.append(joints[i])
+				joint_states.position.append(0)
+				joint_states.velocity.append(0)
 
 	for servo in msg.motor_states:
 		#Ignore slave servos
@@ -56,6 +57,7 @@ def process(msg):
 			joint_states.name.append(joint_name)
 			joint_states.position.append(joint_position)
 			joint_states.velocity.append(joint_velocity)
+
 	pub.publish(joint_states)
 
 # Subscriber for raw feedback from dynamixel motor. Position of the motor will be in the range of (0,1023).

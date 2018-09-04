@@ -1,0 +1,7 @@
+<launch>
+<!-- Start tilt joint controller -->
+<include file="$(find elir_actuation)/launch/controller_manager.launch"></include>
+<include file="$(find elir_actuation)/launch/trajectory_test.launch"> </include>
+<include file="$(find elir_state)/launch/robot_state.launch"> </include>
+<!-- <include file="$(find elir_moveit)/launch/elir_planning_execution.launch"> </include> -->
+</launch>

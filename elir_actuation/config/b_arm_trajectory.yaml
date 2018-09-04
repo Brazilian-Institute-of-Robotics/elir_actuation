@@ -1,4 +1,4 @@
-f_arm_trajectory_controller:
+b_arm_trajectory_controller:
     controller:
         package: dynamixel_controllers
         module: joint_trajectory_action_controller
