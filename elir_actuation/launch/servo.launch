@@ -1,10 +1,9 @@
 <launch>
     <!-- Start tilt joint controller -->
-    <rosparam file="$(find elir_actuation)/config/f_arm_joints.yaml" command="load"/>
+    <rosparam file="$(find elir_actuation)/config/servo.yaml" command="load"/>
     <node name="tilt_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port pan_tilt_port
-                joint1_f_controller
-                joint2_f_controller"
+                joint_test"
           output="screen"/>
 </launch>
