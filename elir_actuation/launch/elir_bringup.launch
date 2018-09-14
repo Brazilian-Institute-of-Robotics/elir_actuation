@@ -4,7 +4,7 @@
 <!-- Start robot state -->
 <include file="$(find elir_state)/launch/robot_state.launch"> </include>
 <!-- Spawn f_arm trajectory controller -->
-<include file="$(find elir_actuation)/launch/trajectory_f_arm.launch"> </include>
+<include file="$(find elir_actuation)/launch/arm_control/trajectory_f_arm.launch"> </include>
 <!-- Spawn b_arm trajectory controller -->
-<include file="$(find elir_actuation)/launch/trajectory_b_arm.launch"> </include>
+<include file="$(find elir_actuation)/launch/arm_control/trajectory_b_arm.launch"> </include>
 </launch>
