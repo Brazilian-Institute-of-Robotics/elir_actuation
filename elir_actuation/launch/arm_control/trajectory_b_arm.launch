@@ -1,6 +1,6 @@
 <launch>
 <!-- Start tilt joint controller -->
-    <rosparam file="$(find elir_actuation)/config/arms_joints.yaml" command="load"/>
+    <rosparam file="$(find elir_actuation)/config/arms/joints.yaml" command="load"/>
     <node name="dual_motor_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port pan_tilt_port
@@ -10,7 +10,7 @@
           output="screen"/>
 
 	<!-- Start tilt joint controller -->
-    <rosparam file="$(find elir_actuation)/config/b_arm_trajectory.yaml" command="load"/>
+    <rosparam file="$(find elir_actuation)/config/arms/b_arm_trajectory.yaml" command="load"/>
     <node name="controller_sapwner_meta" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --type=meta
