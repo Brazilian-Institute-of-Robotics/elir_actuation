@@ -9,7 +9,7 @@
                 "
           output="screen"/>
 
-	<!-- Start tilt joint controller -->
+<!-- Start the meta controller -->
     <rosparam file="$(find elir_actuation)/config/arms/f_arm_trajectory.yaml" command="load"/>
     <node name="f_controller_spawner_meta" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager

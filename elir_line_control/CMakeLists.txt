@@ -8,8 +8,9 @@ project(elir_line_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  dynamixel_msgs
+  std_msgs
   rospy
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
