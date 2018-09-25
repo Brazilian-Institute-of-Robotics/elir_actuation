@@ -15,10 +15,10 @@ class line_mimic_control():
         rospy.spin()
     #Callback function implementing the pose value received
     def callback(self, data):
-        key_vel = data.angular.z
+        key_vel = 3*data.angular.z
         self.traction_f_publisher.publish(key_vel)
         self.traction_b_publisher.publish(key_vel)
-        self.traction_ap_publisher.publish(key_vel)
+        self.traction_ap_publisher.publish(-key_vel)
 
 if __name__ == '__main__':
     try:
