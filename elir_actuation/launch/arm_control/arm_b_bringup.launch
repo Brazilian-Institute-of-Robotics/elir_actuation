@@ -1,4 +1,7 @@
 <launch>
+<!-- This launch file spawns only the b_arm trajectory controller and
+run the robot state node used by MoveIt. -->
+
 <!-- Start the controller manager -->
 <include file="$(find elir_actuation)/launch/controller_manager.launch"></include>
 <!-- Spawn the trajectory controller -->
