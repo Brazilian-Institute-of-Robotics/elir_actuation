@@ -1,0 +1,8 @@
+<launch>
+<!-- Start the controller manager -->
+<!-- Start the trajectory controller -->
+<include file="$(find elir_actuation)/launch/traction_control/traction_ap.launch"> </include>
+<include file="$(find elir_actuation)/launch/traction_control/traction_b.launch"> </include>
+<include file="$(find elir_actuation)/launch/traction_control/traction_f.launch"> </include>
+
+</launch>
