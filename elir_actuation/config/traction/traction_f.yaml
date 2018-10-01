@@ -1,0 +1,14 @@
+traction_f_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_torque_controller_dual_motor
+        type: JointTorqueControllerDualMotor
+    joint_name: traction_f
+    joint_speed: 1.17
+    motor_master:
+        id: 51
+        init: 0
+        min: -2047
+        max: 2047
+    motor_slave:
+        id: 61

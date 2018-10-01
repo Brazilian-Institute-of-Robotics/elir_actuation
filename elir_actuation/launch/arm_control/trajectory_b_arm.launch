@@ -1,0 +1,23 @@
+<launch>
+<!-- This launch file starts the b_arm trajectory controller -->
+<!-- Start tilt joint controller -->
+    <rosparam file="$(find elir_actuation)/config/arms/joints.yaml" command="load"/>
+    <node name="b_dual_motor_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --port pan_tilt_port
+                  joint1_b_controller
+		      joint2_b_controller
+                "
+          output="screen"/>
+
+<!-- Start the meta controller -->
+    <rosparam file="$(find elir_actuation)/config/arms/b_arm_trajectory.yaml" command="load"/>
+    <node name="b_controller_spawner_meta" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --type=meta
+		      b_arm_trajectory_controller
+                  joint1_b_controller
+		      joint2_b_controller
+                "
+          output="screen"/>
+</launch>

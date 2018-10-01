@@ -1,4 +1,4 @@
-f_arm_controller:
+f_claw_trajectory_controller:
     controller:
         package: dynamixel_controllers
         module: joint_trajectory_action_controller
@@ -6,4 +6,4 @@ f_arm_controller:
     joint_trajectory_action_node:
         min_velocity: 0.1
         constraints:
-            goal_time: 0.25  
+            goal_time: 0.25   
