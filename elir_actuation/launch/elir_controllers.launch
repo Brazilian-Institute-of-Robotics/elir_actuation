@@ -1,0 +1,8 @@
+<launch>
+<!-- Spawn arms trajectory controllers -->
+<include file="$(find elir_actuation)/launch/arm_control/arm_controllers_bringup.launch"> </include>
+<!-- Spawn claws trajectory controllers -->
+<include file="$(find elir_actuation)/launch/claw_control/claw_controllers_bringup.launch"> </include>
+<!-- Spawn traction controllers -->
+<include file="$(find elir_actuation)/launch/traction_control/traction_bringup.launch"> </include>
+</launch>
