@@ -1,0 +1,8 @@
+<launch>
+<!-- Starts the f_claw_trajectory controller -->
+<include file="$(find elir_actuation)/launch/claw_control/f_claw_trajectory_controller.launch"></include>
+<!-- Starts the b_claw_trajectory controller -->
+<include file="$(find elir_actuation)/launch/claw_control/b_claw_trajectory_controller.launch"></include>
+<!-- Starts the f_claw_trajectory controller -->
+<include file="$(find elir_actuation)/launch/claw_control/ap_claw_controller.launch"></include>
+</launch>

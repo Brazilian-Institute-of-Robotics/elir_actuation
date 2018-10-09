@@ -7,7 +7,7 @@ joint_claw_f1_controller:
     joint_speed: 1.0
     motor:
         id: 31
-        init: 0
+        init: 2047
         min: 0
         max: 4095
 
@@ -20,7 +20,7 @@ joint_claw_f2_controller:
     joint_speed: 1.0
     motor:
         id: 41
-        init: 0
+        init: 400
         min: 0
         max: 4095
 
@@ -33,9 +33,9 @@ joint_claw_b1_controller:
     joint_speed: 1.0
     motor:
         id: 131
-        init: 0
-        min: 0
-        max: 4095
+        init: 4095
+        min: 4095
+        max: 0
 
 joint_claw_b2_controller:
     controller:
@@ -46,9 +46,9 @@ joint_claw_b2_controller:
     joint_speed: 1.0
     motor:
         id: 141
-        init: 0
-        min: 0
-        max: 4095
+        init: 4095
+        min: 4095
+        max: 0
 
 joint_claw_ap_controller:
     controller:
@@ -58,7 +58,7 @@ joint_claw_ap_controller:
     joint_name: claw_ap
     joint_speed: 1.0
     motor:
-        id: 141
+        id: 71
         init: 0
         min: 0
         max: 4095          
