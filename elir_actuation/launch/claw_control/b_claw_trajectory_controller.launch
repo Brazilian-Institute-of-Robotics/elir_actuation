@@ -4,8 +4,8 @@
     <node name="b_dual_motor_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port pan_tilt_port
-                  joint_claw_traction_b1_controller
-		      joint_claw_traction_b2_controller
+                  joint_claw_b1_controller
+		      joint_claw_b2_controller
                 "
           output="screen"/>
 
@@ -15,8 +15,8 @@
           args="--manager=dxl_manager
                 --type=meta
 		      b_claw_trajectory_controller
-                  joint_claw_traction_b1_controller
-		      joint_claw_traction_b2_controller
+                  joint_claw_b1_controller
+		      joint_claw_b2_controller
                 "
           output="screen"/>
 </launch>

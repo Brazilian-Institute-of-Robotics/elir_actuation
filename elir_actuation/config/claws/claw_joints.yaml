@@ -1,4 +1,4 @@
-joint_claw_traction_f1_controller:
+joint_claw_f1_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -11,7 +11,7 @@ joint_claw_traction_f1_controller:
         min: 0
         max: 4095
 
-joint_claw_traction_f2_controller:
+joint_claw_f2_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -24,7 +24,7 @@ joint_claw_traction_f2_controller:
         min: 0
         max: 4095
 
-joint_claw_traction_b1_controller:
+joint_claw_b1_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -37,7 +37,7 @@ joint_claw_traction_b1_controller:
         min: 0
         max: 4095
 
-joint_claw_traction_b2_controller:
+joint_claw_b2_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
