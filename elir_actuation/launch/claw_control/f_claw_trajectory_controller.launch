@@ -10,7 +10,7 @@
           output="screen"/>
 
 <!-- Start the meta controller -->
-    <rosparam file="$(find elir_actuation)/config/claws/b_claw_controller.yaml" command="load"/>
+    <rosparam file="$(find elir_actuation)/config/claws/f_claw_controller.yaml" command="load"/>
     <node name="b_controller_spawner_meta" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --type=meta

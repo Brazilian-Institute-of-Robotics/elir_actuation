@@ -110,7 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES control_services
-#  CATKIN_DEPENDS dynamixel_controllers dynamixel_msgs roscpp rospy std_msgs std_srvs
+  CATKIN_DEPENDS dynamixel_controllers dynamixel_msgs roscpp rospy std_msgs std_srvs
 #  DEPENDS system_lib
 )
 
