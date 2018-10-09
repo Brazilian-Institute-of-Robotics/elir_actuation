@@ -8,8 +8,8 @@ F_CLAW_JOINTS = ['claw_f1','claw_f2']
 B_CLAW_JOINTS = ['claw_b1','claw_b2']
 AP_CLAW_JOINTS = ['claw_ap']
 
-OPEN_Q = [-1.57,1.57]
-CLOSE_Q = [0, 0]
+OPEN_Q = [1.57,1.57]
+CLOSE_Q = [0,0]
 
 class claw_control_services():
 
@@ -53,7 +53,7 @@ class claw_control_services():
         msg.points = []
         #Joint Trajectory points
         points = JointTrajectoryPoint()
-        points.time_from_start = rospy.rostime.Duration(2)
+        points.time_from_start = rospy.rostime.Duration(0.5)
         points.positions = CLOSE_Q
 
         msg.points.append(points)
