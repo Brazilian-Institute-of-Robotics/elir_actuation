@@ -11,7 +11,7 @@ joint1_f_controller:
         min: 307
         max: 1089
     motor_slave:
-        id: 22
+        id: 11
 
 joint2_f_controller:
     controller:
@@ -26,7 +26,7 @@ joint2_f_controller:
         min: 763
         max: 2523
     motor_slave:
-        id: 11
+        id: 22
 
 joint1_b_controller:
     controller:
@@ -36,12 +36,12 @@ joint1_b_controller:
     joint_name: joint1_b
     joint_speed: 0.5
     motor_master:
-        id: 23
+        id: 111
         init: 633
         min: 307
         max: 1089
     motor_slave:
-        id: 13
+        id: 112
 
 joint2_b_controller:
     controller:
@@ -51,9 +51,9 @@ joint2_b_controller:
     joint_name: joint2_b
     joint_speed: 0.5
     motor_master:
-        id: 14
+        id: 122
         init: 1415
         min: 763
         max: 2523
     motor_slave:
-        id: 24
+        id: 121
