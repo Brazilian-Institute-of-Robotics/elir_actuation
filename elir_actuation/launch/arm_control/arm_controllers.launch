@@ -1,0 +1,6 @@
+<launch>
+<!-- Start the f_arm controller -->
+<include file="$(find elir_actuation)/launch/arm_control/trajectory_f_arm.launch"> </include>
+<!-- Start the b_arm controller -->
+<include file="$(find elir_actuation)/launch/arm_control/trajectory_b_arm.launch"> </include>
+</launch>

@@ -1,4 +1,4 @@
-joint_claw_traction_f1:
+joint_claw_f1_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -7,11 +7,11 @@ joint_claw_traction_f1:
     joint_speed: 1.0
     motor:
         id: 31
-        init: 0
+        init: 2047
         min: 0
         max: 4095
 
-joint_claw_traction_f2:
+joint_claw_f2_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -20,11 +20,11 @@ joint_claw_traction_f2:
     joint_speed: 1.0
     motor:
         id: 41
-        init: 0
+        init: 400
         min: 0
         max: 4095
 
-joint_claw_traction_b1:
+joint_claw_b1_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -33,11 +33,11 @@ joint_claw_traction_b1:
     joint_speed: 1.0
     motor:
         id: 131
-        init: 0
-        min: 0
-        max: 4095
+        init: 3072
+        min: 3072
+        max: 0
 
-joint_claw_traction_b2:
+joint_claw_b2_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller
@@ -46,6 +46,19 @@ joint_claw_traction_b2:
     joint_speed: 1.0
     motor:
         id: 141
+        init: 3072
+        min: 3072
+        max: 0
+
+joint_claw_ap_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: claw_ap
+    joint_speed: 1.0
+    motor:
+        id: 71
         init: 0
         min: 0
-        max: 4095     
+        max: 4095          
