@@ -10,7 +10,7 @@ rospy.init_node('State_Publisher')
 register_to_rad = (360.0/4095)*(pi/180)
 
 #Dictionary containing the joint name and master servo ID
-joints = {12:'joint1_f',21:'joint2_f',111:'joint1_b',122:'joint2_b',
+joints = {11:'joint1_f',21:'joint2_f',111:'joint1_b',122:'joint2_b',
 31:'joint_garra_tracao_f1',41:'joint_garra_tracao_f2',131:'joint_garra_tracao_b1',
 141:'joint_garra_tracao_b2',71:'joint_garra_tracao_ap',51:'joint_eixo_tracao_f1',
 61:'joint_eixo_tracao_f2',151:'joint_eixo_tracao_b1',161:'joint_eixo_tracao_b2',
