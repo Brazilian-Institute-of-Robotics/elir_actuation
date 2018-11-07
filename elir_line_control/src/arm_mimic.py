@@ -18,7 +18,7 @@ class arm_mimic_control():
     #Callback function implementing the pose value received
     def callback(self, data):
         acltual_pos = self.b_arm_subscriber.position
-        key_vel = actual_pos + 0.3*data.angular.z
+        key_vel = actual_pos + 0.3 * data.angular.z
         self.b_arm_publisher.publish(key_vel)
         self.f_arm_publisher.publish(key_vel)
 
