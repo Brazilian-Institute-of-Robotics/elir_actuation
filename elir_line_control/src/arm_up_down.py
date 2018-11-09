@@ -3,14 +3,24 @@ import rospy
 from std_msgs.msg  import Float64
 from geometry_msgs.msg import Twist
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
-from dynamixel_msgs.msg import JointState
+#from dynamixel_msgs.msg import JointState
 from sensor_msgs.msg import JointState
 
 class arm_up_down_mimic_control():
 
     def __init__(self):
+
+        #Robot joints
+        self.F_ARM_JOINTS = ['joint1_f','joint2_f']
+        self.B_ARM_JOINTS = ['joint1_b','joint2_b']
+
+        #Trajectory Duration
+        self.trajectory_duration = rospy.rostime.Duration(0.8)
+        
+
         #Creating our node,publisher and subscriber
-        self.b_arm_subscriber = rospy.Subscriber('elir/joint_states', JointState, self.callback)
+
+        self.b_arm_subscriber = rospy.Subscriber('elir/joint_states', JointState, self.callback_joints)
 
         self.key_subscriber = rospy.Subscriber('/key_vel', Twist, self.callback_joy)
 
@@ -19,27 +29,22 @@ class arm_up_down_mimic_control():
 
         rospy.spin()
 
-        #Robot joints
-        self.F_ARM_JOINTS = ['joint1_f','joint2_f']
-        self.B_ARM_JOINTS = ['joint1_b','joint2_b']
-
-        #Trajectory Duration
-        self.trajectory_duration = rospy.rostime.Duration(0.8)
-        rospy.spin()
+    
 
 
     #Callback function implementing the pose value received
     def callback_joints(self,data):
-        self.current_joint1b = msg.position[2]
-        self.current_joint2b = msg.position[3]
-        self.current_joint1f = msg.position[0]
-        self.current_joint2f = msg.position[1]
+        self.current_joint1b = data.position[2]
+        self.current_joint2b = data.position[3]
+        self.current_joint1f = data.position[0]
+        self.current_joint2f = data.position[1]
 
     def callback_joy(self, data):
-        key_vel = 3*data.angular.z
+        key_f = 0.5*data.angular.z
+        key_b = 0.5*data.angular.x
 
-        #F_ARM
-        self.UP_F_ARM_POINTS = [ key_vel + self.current_joint1f , kel_vel +self.current_joint2f]
+        
+        self.UP_F_ARM_POINTS = [ -key_f + self.current_joint1f , key_f + self.current_joint2f]
         time = rospy.get_time()
         #Joint Trajectory message
         msg = JointTrajectory()
@@ -54,7 +59,7 @@ class arm_up_down_mimic_control():
         self.f_arm_publisher.publish(msg)
 
         #B_ARM
-        self.UP_B_ARM_POINTS = [key_vel + self.current_joint1b , key_vel + self.current_joint2b]
+        self.UP_B_ARM_POINTS = [ -key_b + self.current_joint1b , key_b + self.current_joint2b]
         #Get current time for header stamp
         time = rospy.get_time()
         #Joint Trajectory message
@@ -72,6 +77,6 @@ class arm_up_down_mimic_control():
 
 if __name__ == '__main__':
     try:
-        rospy.init_node('arm_up_down_controller', anonymous=True)
+        rospy.init_node('elir_line_controller', anonymous=True)
         x = arm_up_down_mimic_control()
     except rospy.ROSInterruptException: pass
