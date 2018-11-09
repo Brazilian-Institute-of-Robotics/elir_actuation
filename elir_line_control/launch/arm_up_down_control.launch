@@ -1,6 +1,6 @@
 <launch>
 <!-- Starts the line mimic command -->
-<node name="arm_up_down" pkg="elir_line_control" type="arm_up_down.py" />
+<node name="arm_up_down_mimic" pkg="elir_line_control" type="arm_up_down.py" />
 <node name="teleop_tool" pkg="key_teleop" type="key_teleop.py" output="screen"/>  
 
 </launch>
