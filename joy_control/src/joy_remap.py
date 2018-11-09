@@ -25,16 +25,17 @@ class joy_control():
         
         self.joint2_b_subs = rospy.Subscriber('/joint2_b_controller/state', JointState, self.callback_joint2b) 
         self.joint2_f_subs = rospy.Subscriber('/joint2_f_controller/state', JointState, self.callback_joint2f) 
-        rospy.spin()
-
-        #Robot joints
-        self.F_ARM_JOINTS = ['joint1_f','joint2_f']
-        self.B_ARM_JOINTS = ['joint1_b','joint2_b']
 
         #Trajectory Duration
         self.trajectory_duration = rospy.rostime.Duration(0.8)
-        self.rate = rospy.Rate(150)
-        rospy.spin()
+
+        self.current_joint1f = 0
+        self.current_joint1b = 0
+        self.current_joint2f = 0
+        self.current_joint2b = 0
+
+        self.f_arm_pos_increment = 0
+        self.b_arm_pos_increment = 0
 
     #Callback function implementing the pose value received
     def callback_joint1f(self,data):
@@ -57,34 +58,56 @@ class joy_control():
         button_analog_up = data.buttons[12]
         button_analog_down = data.buttons[13]
 
-        if left_horizontal_analog != 0 :
-            if left_horizontal_analog > 0.8:
+        button_analog_right =data.buttons[15]
+        button_analog_left =data.buttons[14]
+
+        right_trigger = data.buttons[7]
+        left_trigger = data.buttons[6]
+        
+        if right_trigger == 1:
+            self.move_joint_2f = True
+        else:
+            self.move_joint_2f = False
+        
+        if left_trigger == 1:
+            self.move_joint_2b = True
+        else:
+            self.move_joint_2b= False
+
+        #Define a variavel de incremento no braco f
+        if right_vertical_analog != 0 :
+            if right_vertical_analog > 0.8:
+                data = 1
+                self.f_arm_pos_increment = data
+            if right_vertical_analog < -0.8:
+                data = -1
+                self.f_arm_pos_increment = data
+        else:
+            self.f_arm_pos_increment = 0
+            
+        
+        #Define a variavel de incremento no braco b
+        if left_vertical_analog != 0 :
+            if left_vertical_analog > 0.8:
+                data = 1
+                self.b_arm_pos_increment = data
+                print(data)
+            if left_vertical_analog < -0.8:
+                data = -1
+                self.b_arm_pos_increment = data
+        else:
+            self.b_arm_pos_increment = 0
+
+        #Chama a funcao para mover na linha quando botao for pressionado
+        if button_analog_left or button_analog_right :
+            if button_analog_left:
                 data = -1
                 self.line_horizontal_control(data)
-                print("esquerda")
-            if left_horizontal_analog < -0.8:
+            if button_analog_right:
                 data = 1
                 self.line_horizontal_control(data)
-                print("direita")
         else:
             self.line_horizontal_control(0)
-    
-        # if right_vertical_analog != 0:
-        #     if right_vertical_analog > 0.8:
-        #         data = 1
-        #         self.arm_move(data)
-        #     if right_vertical_analog < 0.8:
-        #         data = 1
-        #         self.arm_move(data)
-
-        if button_analog_up or button_analog_down:
-            print("botao")
-            if data.button_analog_up > 0:
-                data = -1
-                line_push_up(data)
-            if data.button_analog_down > 0:
-                data = 1
-                line_push_up(data)
 
     def traction_control(self, data):
         key_vel = 3*data.angular.z
@@ -92,18 +115,51 @@ class joy_control():
         self.traction_b_publisher.publish(key_vel)
         self.traction_ap_publisher.publish(-key_vel)
 
-    def line_push_up(self, data):   
-        goal_joint1f = self.joint1_f + 0.1*data
-        self.joint1f_publisher.publish(goal_joint1f)
-        self.rate.sleep()
-    
+    def f_arm_move(self,data):
+        if not self.move_joint_2f:
+            goal_joint_1f = self.current_joint1f + 0.01*data
+            self.joint1f_publisher.publish(goal_joint_1f)
+        else:
+            goal_joint_2f = self.current_joint2f + 0.01*data
+            self.joint2f_publisher.publish(goal_joint_2f)
+
+    def b_arm_move(self,data):  
+        if not self.move_joint_2b:
+            goal_joint_1b = self.current_joint1b + 0.01*data
+            self.joint1b_publisher.publish(goal_joint_1b)
+        else:
+            goal_joint_2b = self.current_joint2b + 0.01*data
+            self.joint2b_publisher.publish(goal_joint_2b)
+
     def line_horizontal_control(self, data):
         key_vel = 3*data
         self.traction_f_publisher.publish(key_vel)
         self.traction_b_publisher.publish(key_vel)
         self.traction_ap_publisher.publish(-key_vel)
+
 if __name__ == '__main__':
     try:
         rospy.init_node('joy_controller', anonymous=True)
         x = joy_control()
+        rate = rospy.Rate(150)
+        while not rospy.is_shutdown():
+            if x.f_arm_pos_increment != 0:
+                data = x.f_arm_pos_increment
+                x.f_arm_move(data)
+                rate.sleep()
+
+            if x.b_arm_pos_increment != 0:
+                data = x.b_arm_pos_increment
+                x.b_arm_move(data)
+                rate.sleep()
+            
+### COMANDOS 
+#ANALOGICOS 
+#DIREITO/ESQUERDO SEM O GATILHO SOBE JUNTA 1F/1B, 
+#COM GATILHO CORRESPONDENTE JUNTA 2F/2B
+
+##ANALOGICO DE BOTAO
+#DIREITA ROBO PRA DIREITA ESQUERDA ROBO PRA ESQUERDA
+
+
     except rospy.ROSInterruptException: pass
