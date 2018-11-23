@@ -3,7 +3,7 @@ import rospy
 from std_msgs.msg  import Float64
 from geometry_msgs.msg import Twist
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
-#from dynamixel_msgs.msg import JointState
+from dynamixel_msgs.msg import JointState
 from sensor_msgs.msg import JointState
 
 class arm_up_down_mimic_control():
@@ -20,7 +20,12 @@ class arm_up_down_mimic_control():
 
         #Creating our node,publisher and subscriber
 
-        self.b_arm_subscriber = rospy.Subscriber('elir/joint_states', JointState, self.callback_joints)
+        self.b_arm_subscriber = rospy.Subscriber('/joint1_b_controller/state', JointState, self.callback_joint1b) 
+        self.f_arm_subscriber = rospy.Subscriber('/joint1_f_controller/state', JointState, self.callback_joint1f)  
+        self.b_arm_subscriber = rospy.Subscriber('/joint2_b_controller/state', JointState, self.callback_joint2b) 
+        self.f_arm_subscriber = rospy.Subscriber('/joint2_f_controller/state', JointState, self.callback_joint2f)  
+
+        #self.b_arm_subscriber = rospy.Subscriber('elir/joint_states', JointState, self.callback_joints)
 
         self.key_subscriber = rospy.Subscriber('/key_vel', Twist, self.callback_joy)
 
@@ -33,11 +38,23 @@ class arm_up_down_mimic_control():
 
 
     #Callback function implementing the pose value received
-    def callback_joints(self,data):
-        self.current_joint1b = data.position[2]
-        self.current_joint2b = data.position[3]
-        self.current_joint1f = data.position[0]
-        self.current_joint2f = data.position[1]
+    # def callback_joints(self,data):
+    #     self.current_joint1b = data.position[2]
+    #     self.current_joint2b = data.position[3]
+    #     self.current_joint1f = data.position[0]
+    #     self.current_joint2f = data.position[1]
+
+    def callback_joint1b(self,data):
+        self.current_joint1b = data.current_pos
+
+    def callback_joint2b(self,data):
+        self.current_joint2b = data.current_pos
+
+    def callback_joint1f(self,data):
+        self.current_joint1f = data.current_pos
+
+    def callback_joint2f(self,data):
+        self.current_joint2f = data.current_pos     
 
     def callback_joy(self, data):
         key_f = 0.5*data.angular.z
