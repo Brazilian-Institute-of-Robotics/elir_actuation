@@ -1,0 +1,5 @@
+<launch>
+<!-- Starts the line mimic command -->
+<node name="robot_stretch" pkg="elir_line_control" type="robot_stretch.py" />
+<node name="teleop_tool" pkg="key_teleop" type="key_teleop.py" output="screen"/> 
+</launch>

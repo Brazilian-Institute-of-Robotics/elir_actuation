@@ -1,0 +1,13 @@
+<launch>
+<!-- Starts the controller Manager -->
+<!-- <include file="$(find elir_actuation)/launch/controller_manager.launch"></include> -->
+<!-- Spawn arms trajectory controllers -->
+<include file="$(find elir_actuation)/launch/elir_controllers.launch"> </include>
+<!-- Start robot state -->
+<include file="$(find elir_state)/launch/robot_state.launch"> </include>
+<!-- Start de control services node for opening and closing the claws -->
+<node name="claw_control_services" pkg="control_services" type="claw_control.py" />
+<!-- Start planning execution node-->
+<include file="$(find elir_moveit)/launch/elir_planning_execution.launch"> </include>
+<include file="$(find elir_line_control)/launch/line_control.launch"> </include>
+</launch>
