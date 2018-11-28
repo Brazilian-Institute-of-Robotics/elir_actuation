@@ -5,6 +5,7 @@ from math import pi
 from std_msgs.msg import Float64
 from std_msgs.msg import String
 from nav_msgs.msg import Odometry
+from control_services.srv import LineMovement
 
 #!/usr/bin/env python
 
@@ -14,18 +15,22 @@ class elir_odometry():
         # rospy.init_node(str(odometry_parameters[0]))
         self.odometry_parameters = odometry_parameters
 
-        #Odometry message object
-        self.odometry_data = Odometry() 
         #Suposing that the last element will be the wheel radius
         self.wheel_radius = self.odometry_parameters[len(odometry_parameters) - 1]/2
-        self.controllers_qtd = len(self.odometry_parameters) - 1
 
-        self.traction_f_publisher = rospy.Publisher('/traction_f_controller/state', self.traction1_callback)
-        self.traction_ap_publisher = rospy.Publisher('/traction_ap_controller/state', self.traction2_callback)
+        self.tr1_subs = rospy.Subscriber('/traction_b_controller/state', JointState, self.traction1_callback)
+        self.tr2_subs = rospy.Subscriber('/traction_f_controller/state', JointState, self.traction2_callback)
+        
+        self.traction_f_publisher = rospy.Publisher('/traction_f_controller/command',Float64,queue_size = 10)
+        self.traction_ap_publisher = rospy.Publisher('/traction_ap_controller/command', Float64,queue_size = 10)
+        self.traction_b_publisher = rospy.Publisher('/traction_b_controller/state', Float64,queue_size = 10)
 
-        self.line_move = rospy.Service('line_movement/', Empty, self.down_b_arm)
+        self.line_move_service = rospy.Service('line_movement/', LineMovement, self.line_movement)
 
-        self.odometry_traction_pub = rospy.Publisher('/odometry/'+ controller1_name , Odometry, queue_size = 10)
+        self.odometry_data = Odometry()
+        self.odometry_final = 0
+        self.linear_vel_final = 0
+
         #Odometry value
         self.odometry_tr1 = 0.0
         self.odometry_tr2 = 0.0
@@ -36,9 +41,34 @@ class elir_odometry():
         self.odometry_aux = 0.0
         self.velocity_aux = 0.0
 
+        self.speed = 3
+
         rospy.spin()
 
-    def line_movement
+    def line_movement(self,req):
+        self.odometry_data = 0
+
+        if req.displacement > 0:
+            self.vel_publish(self.speed)
+        
+        elif req.displacement = 0:
+            return True
+        
+        else:
+            self.vel_publish(-self.speed)
+
+        while(req.displacement < self.odometry_data):
+            
+        self.vel_publish(0)
+
+
+    
+    #Plubishes the velocity value in the traction topics
+    def vel_publish(self,value):
+        self.traction_b_publisher.publish(value)
+        self.traction_f_publisher.publish(value)
+        self.traction_ap_publisher.publish(-value)
+
     #Callback function implementing the JointState received
     def traction1_callback(self, data):
         angular_vel = data.velocity
@@ -64,10 +94,9 @@ class elir_odometry():
             odometry_final = (self.odometry_tr1 + self.odometry_aux)/2
             linear_vel_final = (linear_vel + self.velocity_aux)/2
 
-        self.odometry_data.pose.pose.position.x = odometry_final
-        self.odometry_data.twist.twist.linear.x = linear_vel_final
+        self.odometry_data.pose.pose.position.x = self.odometry_final
+        self.odometry_data.twist.twist.linear.x = self.linear_vel_final
         self.odometry_data.header.stamp = rospy.Time.now()
-        self.odometry_traction_pub.publish(self.odometry_data)
         
     def traction2_callback(self, data):
         #Due do the diferent spin direction of the servos, whe have to:
