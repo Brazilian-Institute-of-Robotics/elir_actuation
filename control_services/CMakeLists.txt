@@ -64,7 +64,6 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(
    FILES
    LineMovement.srv
-  Service2.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -112,7 +111,7 @@ add_service_files(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES control_services
-  CATKIN_DEPENDS dynamixel_controllers dynamixel_msgs roscpp rospy std_msgs std_srvs
+  CATKIN_DEPENDS dynamixel_controllers dynamixel_msgs roscpp rospy std_msgs std_srvs message_generation
 #  DEPENDS system_lib
 )
 
