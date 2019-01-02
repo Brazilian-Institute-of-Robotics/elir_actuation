@@ -8,7 +8,7 @@ from nav_msgs.msg import Odometry
 from control_services.srv import LineMovement
 
 #!/usr/bin/env python
-
+#Code for service to line horizontal displacement based in odometr
 class elir_odometry():
     def __init__(self,odometry_parameters):
         #Initiating odometry node

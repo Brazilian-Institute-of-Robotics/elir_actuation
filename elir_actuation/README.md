@@ -4,7 +4,11 @@ The actuation package is responsible for the dynamixel controllers, creating the
 #Launch Files
 `roslaunch elir_actuation elir_bringup`
 
--Launches the controller_manager, the f_arm and b_arm trajectory clients, starts the traction units and the robot_state node
+-Launches the the controllers, services and the robot_state node, starts the traction units and the robot_state node
+
+`roslaunch elir_actuation arm_control_test.launch`
+
+-Start the controllers for arm_control test, and the robot_stretch node
 
 
 `roslaunch elir_actuation f/b_arm_bringup.launch`

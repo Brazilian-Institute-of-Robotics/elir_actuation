@@ -1,5 +1,5 @@
 <launch>
-<!-- Start the trajectory controller -->
+<!-- Start the controllers for tobot_stretch test, and the robot_stretch node -->
 <include file="$(find elir_actuation)/launch/arm_control/trajectory_b_arm.launch"> </include>
 <include file="$(find elir_actuation)/launch/arm_control/trajectory_f_arm.launch"> </include>
 <include file="$(find elir_actuation)/launch/traction_control/traction_b.launch"> </include>

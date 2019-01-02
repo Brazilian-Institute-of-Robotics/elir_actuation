@@ -1,5 +1,5 @@
 <launch>
-<!-- Start the trajectory controller -->
+<!-- Start the traction controllers and the line teleop control -->
 <include file="$(find elir_actuation)/launch/traction_control/traction_ap.launch"> </include>
 <include file="$(find elir_actuation)/launch/traction_control/traction_b.launch"> </include>
 <include file="$(find elir_actuation)/launch/traction_control/traction_f.launch"> </include>

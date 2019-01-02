@@ -5,7 +5,7 @@ from std_srvs.srv import Empty
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 
-
+#Codes for creating services to open or close claws
 class claw_control_services():
 
     def __init__(self):
